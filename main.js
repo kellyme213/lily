@@ -7,6 +7,8 @@ function print(a)
 function main()
 {
     setupPlayer();
+    generateLily();
+    randomShitSpawn(10);
 	canvas.addEventListener("mousedown", clickFunction);
 
     setInterval(update, 16);
@@ -15,6 +17,8 @@ function main()
 function update()
 {
     updatePlayer();
+    updateLily();
+    updateShits();
     renderLoop();
 }
 

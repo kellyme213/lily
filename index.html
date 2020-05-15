@@ -2,6 +2,7 @@
 	<head>
 		<link rel = "stylesheet" href = "styles.css"> </link>
 		<title> Don't Let Lily Eat Shit </title>
+		<meta charset="utf-8"> </head>
 	</head>
 	<body onload = "main()">
 		<canvas id = "myCanvas" width = "1600px" height = "900px" style = "border:1px solid black;">
@@ -11,10 +12,18 @@
 
 		<div style = "display: none;">
 			<img src = "images/player.png" id = "player"/>
+			<img src = "images/shit.png" id = "shit"/>
+			<img src = "images/lily.png" id = "lily"/>
+			<img src = "images/trash.png" id = "trash"/>
+			<img src = "images/ball.png" id = "ball"/>
+			<img src = "images/treat.png" id = "treat"/>
 		</div>
 	</body>
 
 	<script type="text/javascript" src = "utilities.js"></script>
+	<script type="text/javascript" src = "lily.js"></script>
+	<script type="text/javascript" src = "shit.js"></script>
+	<script type="text/javascript" src = "math.js"></script>
 	<script type="text/javascript" src = "boundingBox.js"></script>
 	<script type="text/javascript" src = "player.js"></script>
 	<script type="text/javascript" src = "render.js"></script>

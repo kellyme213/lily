@@ -1,4 +1,4 @@
-let canvasBox = generateBox(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, CANVAS_WIDTH, CANVAS_HEIGHT);
+let canvasBox = generateBox4(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, CANVAS_WIDTH, CANVAS_HEIGHT);
 
 
 function pointInBox(point, box)
@@ -30,12 +30,12 @@ function boxesIntersect(box1, box2)
 			pointInBox(p4, box2));
 }
 
-function generateBoxCenter(p, w, h)
+function generateBox(p, w, h)
 {
-	return generateBox(p.x, p.y, w, h);
+	return generateBox4(p.x, p.y, w, h);
 }
 
-function generateBox(cx, cy, w, h)
+function generateBox4(cx, cy, w, h)
 {
 	//console.log(p);
 	var box = {};
