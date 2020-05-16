@@ -1,3 +1,5 @@
+var gameState = 0;
+
 
 function print(a)
 {
@@ -14,12 +16,37 @@ function main()
     setInterval(update, 16);
 }
 
+function mainMenuUpdate()
+{
+    mainMenuRenderLoop();
+    if (buttonPressed(' '))
+    {
+        gameState = 1;
+    }
+}
+
 function update()
+{
+    if (gameState == 0)
+    {
+        mainMenuUpdate();
+    }
+    else if (gameState == 1)
+    {
+        gameUpdate();
+    }
+    else if (gameState == 2)
+    {
+
+    }
+}
+
+function gameUpdate()
 {
     updatePlayer();
     updateLily();
     updateShits();
-    renderLoop();
+    gameRenderLoop();
 }
 
 function clickFunction()
@@ -32,6 +59,6 @@ function clickFunction()
     point.x = Number(window.event.clientX - svgx) * (CANVAS_WIDTH / rect.width);
     point.y = Number(window.event.clientY - svgy) * (CANVAS_HEIGHT / rect.height);
 
-    print(point);
+    //print(point);
 }
 

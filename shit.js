@@ -21,13 +21,13 @@ function updateShits()
 			if (boxesIntersect(shitList[x].bbox, lily.bbox))
 			{
 				shitList[x].health--;
-			}
-
-			if (shitList[x].health <= 0)
-			{
-				shitList.splice(x, 1);
-				lily.notifyShitEaten = 1;
-				x--;
+				if (shitList[x].health <= 0)
+				{
+					shitList.splice(x, 1);
+					lily.notifyShitEaten = 1;
+					x--;
+				}
+				break;
 			}
 		}
 	}
