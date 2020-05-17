@@ -28,6 +28,7 @@ function generateLily()
 	lily.notifyShitPickedUp = 0;
 	lily.notifyTreatEaten = 0;
 	lily.frameCounter = 0;
+	lily.amountEaten = 0;
 }
 
 function lilyIdle()
@@ -105,7 +106,7 @@ function lilyRunningAway()
 
 function lilyGoingToShit()
 {
-	//console.log(len(sub(player.position, lily.position)));
+	//console.log(len(sub(lily.target, lily.position)));
 	if (lily.notifyBallThrown == 1)
 	{
 		lily.notifyBallThrown = 0;
@@ -116,7 +117,7 @@ function lilyGoingToShit()
 		}
 	}
 
-	if (len(sub(lily.position, lily.target)) < 3)
+	if (len(sub(lily.position, lily.target)) < 5)
 	{
 		lily.state = LILY_EATING_SHIT;
 	}

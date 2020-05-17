@@ -1,4 +1,5 @@
-var gameState = 0;
+var gameState = 2;
+var numShits = 20;
 
 
 function print(a)
@@ -10,7 +11,7 @@ function main()
 {
     setupPlayer();
     generateLily();
-    randomShitSpawn(10);
+    randomShitSpawn(numShits);
 	canvas.addEventListener("mousedown", clickFunction);
 
     setInterval(update, 16);
@@ -19,10 +20,12 @@ function main()
 function mainMenuUpdate()
 {
     mainMenuRenderLoop();
-    if (buttonPressed(' '))
-    {
-        gameState = 1;
-    }
+}
+
+function endMenuUpdate()
+{
+    generateShitLocations();
+    endMenuRenderLoop();
 }
 
 function update()
@@ -37,7 +40,7 @@ function update()
     }
     else if (gameState == 2)
     {
-
+        endMenuUpdate();
     }
 }
 
@@ -47,6 +50,11 @@ function gameUpdate()
     updateLily();
     updateShits();
     gameRenderLoop();
+
+    if (shitList.length == 0)
+    {
+        gameState = 2;
+    }
 }
 
 function clickFunction()

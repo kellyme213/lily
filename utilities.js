@@ -22,7 +22,7 @@ onkeyup = function(e)
     {
     	pickupShit();
     }
-    
+
     if (e.key == '2')
     {
     	throwBall();
@@ -31,6 +31,15 @@ onkeyup = function(e)
     if (e.key == '3')
     {
     	dropTreat();
+    }
+
+    if (gameState == 0 && e.key == ' ')
+    {
+    	gameState = 1;
+    }
+    if (gameState == 2 && e.key == ' ')
+    {
+    	gameState = 0;
     }
 }
 
@@ -116,6 +125,15 @@ function moveBy(entity, dx, dy)
 function getRand(n)
 {
 	return Math.floor(Math.random() * n);
+}
+
+//https://stackoverflow.com/questions/28389484/convert-float-to-string-with-at-least-one-decimal-place-javascript
+function toNumberString(num) { 
+  if (Number.isInteger(num)) { 
+    return num + ".0"
+  } else {
+    return num.toString(); 
+  }
 }
 
 

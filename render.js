@@ -1,9 +1,16 @@
 var canvas = document.getElementById("myCanvas");
-
+let debug = true;
 
 function renderImage(ctx, img, x, y, w, h)
 {
 	ctx.drawImage(img, x - w / 2, y - h / 2, w, h);
+
+	if (debug)
+	{
+		ctx.beginPath();
+		ctx.rect(x - w / 2, y - h / 2, w, h);
+		ctx.stroke();
+	}
 }
 
 function renderImage2(ctx, img, o)
@@ -66,6 +73,8 @@ function renderUI(ctx)
 	{
 		ctx.fillText('🍪', 240, CANVAS_HEIGHT - 20);
 	}
+
+	//ctx.fillText((100 * (lily.amountEaten / (100 * numShits))).toString(), 300, CANVAS_HEIGHT - 20);
 }
 
 function renderOther(ctx)
@@ -91,10 +100,11 @@ function renderTreat(ctx)
 function gameRenderLoop()
 {
 	var ctx = canvas.getContext("2d");
+	ctx.textAlign = 'left';
 	renderBackground(ctx);
-	renderShits(ctx);
 	renderTreat(ctx);
 	renderOther(ctx);
+	renderShits(ctx);
 	renderPlayer(ctx);
 	renderLily(ctx);
 	renderUI(ctx);
@@ -125,7 +135,7 @@ function renderMainText(ctx)
 	ctx.fillText("in the trash.", vA, 520);
 	ctx.fillText("Press 2 to throw and pick up a ball.", vA, 580);
 	ctx.fillText("Press 3 to drop a treat.", vA, 640);
-	ctx.fillText("Press 4 to tell Lily to come.", vA, 700);
+	//ctx.fillText("Press 4 to tell Lily to come.", vA, 700);
 
 	ctx.fillText("Press Space to start the game.", vA, 780);
 
@@ -141,9 +151,56 @@ function renderMainLily(ctx)
 function mainMenuRenderLoop()
 {
 	var ctx = canvas.getContext("2d");
+	ctx.textAlign = 'left';
 	renderMainLily(ctx);
 	renderMainTextRect(ctx);
 	renderMainText(ctx);
+}
+
+function renderEndMenuBackground(ctx)
+{
+	ctx.fillStyle = "#AAAAAA";
+	ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+}
+
+function renderEndMenuShits(ctx)
+{
+	for (var x = 0; x < shitLocations.length; x++)
+	{
+		ctx.font = 'bold 40pt Avenir';
+		ctx.fillText('💩', shitLocations[x].x, shitLocations[x].y);
+	}
+}
+
+function renderEndMenuUI(ctx)
+{
+	ctx.fillStyle = "#FFFFFF";
+	ctx.font = 'bold 40pt Avenir';
+	ctx.fillText('Congratulations.', CANVAS_WIDTH / 2, 70);
+	var percent = Math.floor((lily.amountEaten / (numShits * 100)) * 10000) / 100;
+	ctx.fillText("Lily ate " + toNumberString(percent) + "% of the available shit.", CANVAS_WIDTH / 2, 150);
+	ctx.fillText("DON'T LET LILY EAT SHIT", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 150);
+
+	ctx.font = 'bold 35pt Avenir';
+	ctx.fillText("Michael Kelly", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 30);
+	ctx.fillText("Maddy Kelly",  CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 130);
+
+	ctx.font = '500 28pt Avenir';
+	ctx.fillText("made by",  CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 110);
+
+	ctx.fillText("everything but the art", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 10);
+	ctx.fillText("the art",  CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 170);
+
+	ctx.fillText("Press Space to replay.", CANVAS_WIDTH / 2, CANVAS_HEIGHT - 50);
+}
+
+function endMenuRenderLoop()
+{	
+	var ctx = canvas.getContext("2d");
+	ctx.textAlign = 'center';
+	renderEndMenuBackground(ctx);
+	renderEndMenuShits(ctx);
+	renderEndMenuUI(ctx);
 }
 
 

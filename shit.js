@@ -21,6 +21,7 @@ function updateShits()
 			if (boxesIntersect(shitList[x].bbox, lily.bbox))
 			{
 				shitList[x].health--;
+				lily.amountEaten++;
 				if (shitList[x].health <= 0)
 				{
 					shitList.splice(x, 1);
@@ -38,8 +39,28 @@ function randomShitSpawn(n)
 	shitList = [];
 	for (var i = 0; i < n; i++)
 	{
-		var x = 40 + Math.floor(Math.random() * (CANVAS_WIDTH - 80));
-		var y = 40 + Math.floor(Math.random() * (CANVAS_HEIGHT - 80));
+		var x = 75 + Math.floor(Math.random() * (CANVAS_WIDTH - 150));
+		var y = 180 + Math.floor(Math.random() * (CANVAS_HEIGHT - 270));
 		spawnShit(x, y);
 	}
 }
+
+
+
+var shitLocations = [];
+
+function generateShitLocations()
+{
+	if (shitLocations.length > 0)
+	{
+		return;
+	}
+
+	//lily.amountEaten = 2000;
+	for (var x = 0; x < lily.amountEaten; x++)
+	{
+		var p = add(generatePoint(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2), mult(1.0 + 0.6 * x, norm(generatePoint(Math.random() - 0.5, Math.random() - 0.5))));
+		shitLocations.push(p);
+	}
+}
+

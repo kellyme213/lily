@@ -20,7 +20,7 @@ function setupPlayer()
 function setupTrash()
 {
 	var trash = {};
-	trash.position = generatePoint(80, 80);
+	trash.position = generatePoint(60, 200);
 	trash.width = 80;
 	trash.height = 80;
 	trash.bbox = generateBox(trash.position, trash.width, trash.height);
@@ -161,7 +161,7 @@ function updatePlayer()
 		player.idle = 0;
 	}
 
-	moveBy(player, dx * 3, dy * 3);
+	moveBy(player, dx * 4, dy * 4);
 
 
 	if (!player.holdingBall && player.ball.ballCount > 0)
