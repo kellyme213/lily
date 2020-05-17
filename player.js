@@ -89,8 +89,9 @@ function dropTreat()
 	{
 		if (player.droppedTreat === undefined)
 		{
-			player.dropTreat = generateTreat();
+			player.droppedTreat = generateTreat();
 			player.numTreats--;
+			lily.notifyTreatDropped = 1;
 		}
 	}
 }

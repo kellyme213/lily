@@ -27,6 +27,7 @@ function generateLily()
 	lily.notifyBallThrown = 0;
 	lily.notifyShitPickedUp = 0;
 	lily.notifyTreatEaten = 0;
+	lily.notifyTreatDropped = 0;
 	lily.frameCounter = 0;
 	lily.amountEaten = 0;
 }
@@ -34,6 +35,14 @@ function generateLily()
 function lilyIdle()
 {
 	lily.v = generatePoint(0, 0);
+
+	if (lily.notifyTreatDropped == 1)
+	{
+		lily.notifyTreatDropped = 0;
+		lily.state = LILY_GOING_TO_TREAT;
+		return;
+	}
+
 	if (lily.notifyBallThrown == 1)
 	{
 		lily.notifyBallThrown = 0;
@@ -64,6 +73,23 @@ function lilyIdle()
 
 function lilyEatingShit()
 {
+	if (lily.notifyShitPickedUp == 1)
+	{
+		lily.notifyShitPickedUp = 0;
+		if (len(sub(lily.target, player.heldShit.position)) < 0.1)
+		{
+			lily.state = LILY_IDLE;
+			return;
+		}
+	}
+
+	if (lily.notifyTreatDropped == 1)
+	{
+		lily.notifyTreatDropped = 0;
+		lily.state = LILY_GOING_TO_TREAT;
+		return;
+	}
+
 	if (lily.notifyBallThrown == 1)
 	{
 		lily.notifyBallThrown = 0;
@@ -90,6 +116,13 @@ function lilyEatingShit()
 
 function lilyRunningAway()
 {
+	if (lily.notifyTreatDropped == 1)
+	{
+		lily.notifyTreatDropped = 0;
+		lily.state = LILY_GOING_TO_TREAT;
+		return;
+	}
+
 	if (lily.notifyBallThrown == 1)
 	{
 		lily.notifyBallThrown = 0;
@@ -106,7 +139,23 @@ function lilyRunningAway()
 
 function lilyGoingToShit()
 {
-	//console.log(len(sub(lily.target, lily.position)));
+	if (lily.notifyShitPickedUp == 1)
+	{
+		lily.notifyShitPickedUp = 0;
+		if (len(sub(lily.target, player.heldShit.position)) < 0.1)
+		{
+			lily.state = LILY_IDLE;
+			return;
+		}
+	}
+	
+	if (lily.notifyTreatDropped == 1)
+	{
+		lily.notifyTreatDropped = 0;
+		lily.state = LILY_GOING_TO_TREAT;
+		return;
+	}
+
 	if (lily.notifyBallThrown == 1)
 	{
 		lily.notifyBallThrown = 0;
@@ -132,6 +181,13 @@ function lilyGoingToShit()
 
 function lilyWander()
 {
+	if (lily.notifyTreatDropped == 1)
+	{
+		lily.notifyTreatDropped = 0;
+		lily.state = LILY_GOING_TO_TREAT;
+		return;
+	}
+
 	if (lily.notifyBallThrown == 1)
 	{
 		lily.notifyBallThrown = 0;
@@ -152,6 +208,13 @@ function lilyWander()
 
 function lilyGoingToBall()
 {
+	if (lily.notifyTreatDropped == 1)
+	{
+		lily.notifyTreatDropped = 0;
+		lily.state = LILY_GOING_TO_TREAT;
+		return;
+	}
+
 	lily.v = mult(6, norm(sub(player.ball.position, lily.position)));
 
 	if (len(sub(lily.position, player.ball.position)) < 10)
@@ -163,13 +226,25 @@ function lilyGoingToBall()
 
 function lilyGoingToTreat()
 {
-	lily.v = mult(3, norm(sub(player.ball.position, lily.position)));
+	lily.v = mult(4, norm(sub(player.droppedTreat.position, lily.position)));
 
-	if (len(sub(lily.position, player.ball.position)) < 10)
+	if (len(sub(lily.position, player.droppedTreat.position)) < 10)
 	{
-		lily.state = LILY_IDLE;
+		//lily.state = LILY_IDLE;
+		lily.state = LILY_EATING_TREAT;
 		lily.v = generatePoint(0, 0);
 	}
+}
+
+function lilyEatingTreat()
+{
+	if (lily.notifyTreatEaten == 1)
+	{
+		lily.notifyTreatEaten = 0;
+		lily.state = LILY_IDLE;
+	}
+
+	lily.v = {x: 0, y: 0};
 }
 
 function updateLily()
@@ -199,6 +274,14 @@ function updateLily()
 	{
 		lilyGoingToBall();
 	}
+	else if (lily.state == LILY_EATING_TREAT)
+	{
+		lilyEatingTreat();
+	}
+	else if (lily.state == LILY_GOING_TO_TREAT)
+	{
+		lilyGoingToTreat();
+	}
 
 
 	moveBy(lily, lily.v.x, lily.v.y);
@@ -208,6 +291,8 @@ function updateLily()
 function getLilySprite()
 {
 	var str = "lily1";
+
+	lily.frameCounter = lily.frameCounter % 1000;
 
 	if (lily.state == LILY_EATING_SHIT || lily.state == LILY_EATING_TREAT)
 	{
@@ -240,7 +325,7 @@ function getLilySprite()
 		str = "lily4";
 	}
 
-	if (lily.state == LILY_GOING_TO_SHIT || lily.state == LILY_WANDER)
+	if (lily.state == LILY_GOING_TO_SHIT || lily.state == LILY_WANDER || lily.state == LILY_GOING_TO_TREAT)
 	{
 		var c = lily.frameCounter % 16;
 		if (c < 8)

@@ -1,5 +1,5 @@
 var canvas = document.getElementById("myCanvas");
-let debug = true;
+let debug = false;
 
 function renderImage(ctx, img, x, y, w, h)
 {

@@ -1,4 +1,4 @@
-var gameState = 2;
+var gameState = 0;
 var numShits = 20;
 
 
@@ -49,9 +49,10 @@ function gameUpdate()
     updatePlayer();
     updateLily();
     updateShits();
+    updateTreat();
     gameRenderLoop();
 
-    if (shitList.length == 0)
+    if (shitList.length == 0 && player.heldShit === undefined)
     {
         gameState = 2;
     }

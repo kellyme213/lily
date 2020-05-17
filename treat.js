@@ -4,10 +4,9 @@ function generateTreat()
 	treat.position = generatePoint(player.position.x, player.position.y);
 	treat.width = 70;
 	treat.height = 24;
-	treat.health = 100;
+	treat.health = 250;
 	treat.bbox = generateBox(treat.position, treat.width, treat.height);
-
-	player.droppedTreat = treat;
+	return treat;
 }
 
 function updateTreat()
@@ -17,7 +16,7 @@ function updateTreat()
 		if (boxesIntersect(player.droppedTreat.bbox, lily.bbox))
 		{
 			player.droppedTreat.health--;
-			if (player.droppedTreat.health > 0)
+			if (player.droppedTreat.health < 0)
 			{
 				player.droppedTreat = undefined;
 				lily.notifyTreatEaten = 1;
