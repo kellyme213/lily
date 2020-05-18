@@ -217,7 +217,7 @@ function lilyGoingToBall()
 
 	lily.v = mult(6, norm(sub(player.ball.position, lily.position)));
 
-	if (len(sub(lily.position, player.ball.position)) < 10)
+	if (len(sub(lily.position, player.ball.position)) < 20)
 	{
 		lily.state = LILY_IDLE;
 		lily.v = generatePoint(0, 0);
@@ -228,7 +228,7 @@ function lilyGoingToTreat()
 {
 	lily.v = mult(4, norm(sub(player.droppedTreat.position, lily.position)));
 
-	if (len(sub(lily.position, player.droppedTreat.position)) < 10)
+	if (len(sub(lily.position, player.droppedTreat.position)) < 20)
 	{
 		//lily.state = LILY_IDLE;
 		lily.state = LILY_EATING_TREAT;

@@ -50,15 +50,25 @@ function renderLily(ctx)
 
 function renderUI(ctx)
 {
-	ctx.font = "40px serif";
-	ctx.fillStyle = "#000000";
+	ctx.font = "500 40px Avenir";
+	ctx.fillStyle = "#FFFFFF";
 	if (player.heldShit !== undefined)
 	{
 		ctx.fillText('💩', 20, CANVAS_HEIGHT - 20);
+		ctx.fillText('1 - Drop shit in trash', 350, CANVAS_HEIGHT - 20);
+	}
+	else
+	{
+		ctx.fillText('1 - Pick up shit', 350, CANVAS_HEIGHT - 20);
 	}
 	if (player.holdingBall)
 	{
 		ctx.fillText('🎾', 80, CANVAS_HEIGHT - 20);
+		ctx.fillText('2 - Throw ball', 750, CANVAS_HEIGHT - 20);
+	}
+	else
+	{
+		ctx.fillText('2 - Pick up ball', 750, CANVAS_HEIGHT - 20);
 	}
 
 	if (player.numTreats > 0)
@@ -73,6 +83,8 @@ function renderUI(ctx)
 	{
 		ctx.fillText('🍪', 240, CANVAS_HEIGHT - 20);
 	}
+
+	ctx.fillText('3 - Drop treat (' + (player.numTreats).toString() + ' left)', 1150, CANVAS_HEIGHT - 20);
 
 	//ctx.fillText((100 * (lily.amountEaten / (100 * numShits))).toString(), 300, CANVAS_HEIGHT - 20);
 }

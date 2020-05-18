@@ -54,22 +54,22 @@ function buttonPressed(button)
 
 function upPressed()
 {
-	return buttonPressed('w');
+	return buttonPressed('w') || buttonPressed('ArrowUp');
 }
 
 function downPressed()
 {
-	return buttonPressed('s');
+	return buttonPressed('s') || buttonPressed('ArrowDown');
 }
 
 function leftPressed()
 {
-	return buttonPressed('a');
+	return buttonPressed('a') || buttonPressed('ArrowLeft');
 }
 
 function rightPressed()
 {
-	return buttonPressed('d');
+	return buttonPressed('d') || buttonPressed('ArrowRight');
 }
 
 function moveBy(entity, dx, dy)
