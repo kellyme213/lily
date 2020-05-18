@@ -12,8 +12,6 @@ function main()
     setupPlayer();
     generateLily();
     randomShitSpawn(numShits);
-	canvas.addEventListener("mousedown", clickFunction);
-
     setInterval(update, 16);
 }
 

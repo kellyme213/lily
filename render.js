@@ -142,7 +142,7 @@ function renderMainText(ctx)
 	ctx.fillText("Please stop Lily from eating shit.", vA, 240);
 	ctx.fillText("Pick up the shit before she eats it.", vA, 300);
 
-	ctx.fillText("Press WASD to move.", vA, 420);
+	ctx.fillText("Press WASD or arrow keys to move.", vA, 420);
 	ctx.fillText("Press 1 to pick up shit and drop it", vA, 480);
 	ctx.fillText("in the trash.", vA, 520);
 	ctx.fillText("Press 2 to throw and pick up a ball.", vA, 580);

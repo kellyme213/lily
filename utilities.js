@@ -8,7 +8,11 @@ var keyMap = {}; // You could also use an array
 onkeydown = function(e){
     e = e || event; // to deal with IE
     keyMap[e.key] = e.type == 'keydown';
-    //print(keyMap);
+
+    //https://www.construct.net/en/forum/construct-3/how-do-i-8/prevent-scrolling-itch-io-143583
+    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+ 		e.preventDefault();
+ 	}
 }
 
 onkeyup = function(e)
